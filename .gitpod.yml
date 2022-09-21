@@ -1,0 +1,38 @@
+image:
+  file: .gitpod.Dockerfile
+
+# List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
+tasks:
+  - name: Server dependencies
+    before: cd backend
+    init: |
+     make deps build
+     docker-compose up -d
+    command: make run
+  - name: App dependencies
+    before: cd frontend
+    init: yarn install
+    command: yarn serve
+    openMode: split-right
+
+vscode:
+  extensions:
+    - golang.Go
+    - esbenp.prettier-vscode
+    - lukashass.volar
+
+# List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
+ports:
+  - port: 8081
+    onOpen: ignore
+  - port: 8080
+    onOpen: open-preview
+
+github:
+  prebuilds:
+    master: true
+    branches: true
+    pullRequests: true
+    pullRequestsFromForks: true
+    addCheck: true
+    addComment: true

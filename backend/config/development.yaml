@@ -1,0 +1,11 @@
+spotify:
+  id: ""
+  secret: ""
+db:
+  path: "./development.db"
+server:
+  port: ":8081"
+mq:
+  address: "localhost:6379"
+download:
+  directory: "/music"

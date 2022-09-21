@@ -1,0 +1,49 @@
+{
+  "name": "gofy",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "tizen:build": "vue-cli-service build && cp tizen/* dist && tizen.bat build-web -- dist && tizen.bat package -t wgt --sign develop -- dist/.buildResult",
+    "tizen:install": "tizen.bat install -n SonicChords.wgt -t T-samsung-6.5-x86 -- dist/.buildResult",
+    "tizen:run": "tizen.bat run -t T-samsung-6.5-x86 --pkgid LQ3mgTpq3r.SonicChords"
+  },
+  "dependencies": {
+    "@vue/composition-api": "^1.6.0",
+    "axios": "^0.27.1",
+    "core-js": "^3.8.3",
+    "moment": "^2.29.3",
+    "register-service-worker": "^1.7.2",
+    "vue": "^2.6.14",
+    "vue-infinite-loading": "^2.4.5",
+    "vue-router": "^3.5.1",
+    "vuetify": "^2.6.0",
+    "vuex": "^3.6.2",
+    "vuex-persistedstate": "^4.1.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-plugin-pwa": "~5.0.0",
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-plugin-typescript": "~5.0.0",
+    "@vue/cli-plugin-vuex": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "@vue/eslint-config-typescript": "^9.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "prettier": "^2.4.1",
+    "sass": "^1.32.7",
+    "sass-loader": "^12.0.0",
+    "typescript": "~4.5.5",
+    "vue-cli-plugin-vuetify": "~2.4.8",
+    "vue-template-compiler": "^2.6.14",
+    "vuetify-loader": "^1.7.0"
+  }
+}
