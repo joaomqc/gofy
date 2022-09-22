@@ -3,6 +3,7 @@ package config
 import (
 	"log"
 	"path/filepath"
+	"strings"
 
 	"github.com/spf13/viper"
 )
@@ -18,6 +19,9 @@ func Init(env string) {
 	config.SetConfigName(env)
 	config.AddConfigPath("../config/")
 	config.AddConfigPath("config/")
+	config.SetEnvPrefix("gofy")
+	config.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
+	config.AutomaticEnv()
 	err = config.ReadInConfig()
 	if err != nil {
 		log.Fatal("error on parsing configuration file")
