@@ -25,6 +25,7 @@ vscode:
 ports:
   - port: 8081
     onOpen: ignore
+    visibility: public
   - port: 8080
     onOpen: open-preview
 
