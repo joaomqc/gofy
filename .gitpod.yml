@@ -5,10 +5,10 @@ image:
 tasks:
   - name: Server dependencies
     before: cd backend
-    init: |
-     make deps build
-     docker-compose up -d
-    command: make run
+    init: make deps build
+    command: >
+      docker-compose up -d &&
+      make run
   - name: App dependencies
     before: cd frontend
     init: yarn install
