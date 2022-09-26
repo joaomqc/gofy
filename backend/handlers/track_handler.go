@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"gofy/config"
 	"gofy/models"
 	spotifyInfra "gofy/spotify"
@@ -52,13 +51,12 @@ func (h TrackHandler) DownloadTrack(track models.Track) error {
 	musicDirectory := c.GetString("download.directory")
 
 	app := "spotdl"
-	outDirOption := "--output-directory" + musicDirectory
+	outDirOption := "--output"
 	url := "https://open.spotify.com/track/" + track.SpotifyID.String()
 
-	cmd := exec.Command(app, outDirOption, url)
+	cmd := exec.Command(app, outDirOption, musicDirectory, url)
 	_, err := cmd.Output()
 	if err != nil {
-		fmt.Println(err)
 		return err
 	}
 

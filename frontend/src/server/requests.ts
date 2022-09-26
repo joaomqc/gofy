@@ -39,3 +39,20 @@ export async function addArtist(
     return "Server could not be reached";
   }
 }
+
+export async function requestArtists(): Promise<{
+  error: string | null;
+  data: any | null;
+}> {
+  try {
+    const response = await axios.get(`${process.env.VUE_APP_API_URL}/artist/`);
+
+    if (response.status !== 200) {
+      return { error: "Request to server failed", data: null };
+    }
+
+    return { error: null, data: response.data };
+  } catch (e) {
+    return { error: "Server could not be reached", data: null };
+  }
+}

@@ -3,30 +3,26 @@ import State from "../state";
 import { performSearch, addArtist } from "@/server/requests";
 
 export interface SearchState {
-  data: {
-    lastSearch: string;
-    artists: any[];
-    albums: any[];
-    tracks: any[];
-    playlists: any[];
-  };
+  lastSearch: string;
+  searchedArtists: any[];
+  searchedAlbums: any[];
+  searchedTracks: any[];
+  searchPlaylists: any[];
 }
 
 const sharedModule: Module<SearchState, State> = {
   state: {
-    data: {
-      lastSearch: "",
-      artists: [],
-      albums: [],
-      tracks: [],
-      playlists: [],
-    },
+    lastSearch: "",
+    searchedArtists: [],
+    searchedAlbums: [],
+    searchedTracks: [],
+    searchPlaylists: [],
   },
   getters: {
-    searchedArtists: (state) => state.data.artists,
-    searchedAlbums: (state) => state.data.albums,
-    searchedTracks: (state) => state.data.tracks,
-    searchedPlaylists: (state) => state.data.playlists,
+    searchedArtists: (state) => state.searchedArtists,
+    searchedAlbums: (state) => state.searchedAlbums,
+    searchedTracks: (state) => state.searchedTracks,
+    searchedPlaylists: (state) => state.searchPlaylists,
   },
   actions: {
     async add(state, { id, monitor, type }) {
@@ -43,34 +39,34 @@ const sharedModule: Module<SearchState, State> = {
       }
     },
     async search(state, { searchTerm, type }) {
-      if (searchTerm == state.state.data.lastSearch) {
+      if (searchTerm == state.state.lastSearch) {
         switch (type) {
           case "artist":
-            if (state.state.data.artists.length) {
+            if (state.state.searchedArtists.length) {
               return;
             }
             break;
           case "album":
-            if (state.state.data.albums.length) {
+            if (state.state.searchedAlbums.length) {
               return;
             }
             break;
           case "track":
-            if (state.state.data.tracks.length) {
+            if (state.state.searchedTracks.length) {
               return;
             }
             break;
           case "playlist":
-            if (state.state.data.playlists.length) {
+            if (state.state.searchPlaylists.length) {
               return;
             }
             break;
         }
       } else {
-        state.state.data.artists = [];
-        state.state.data.albums = [];
-        state.state.data.tracks = [];
-        state.state.data.playlists = [];
+        state.state.searchedArtists = [];
+        state.state.searchedAlbums = [];
+        state.state.searchedTracks = [];
+        state.state.searchPlaylists = [];
       }
 
       state.dispatch("setLoading", true);
@@ -89,19 +85,19 @@ const sharedModule: Module<SearchState, State> = {
   },
   mutations: {
     setResult(state, { data, type, searchTerm }) {
-      state.data.lastSearch = searchTerm;
+      state.lastSearch = searchTerm;
       switch (type) {
         case "artist":
-          state.data.artists = data;
+          state.searchedArtists = data;
           break;
         case "album":
-          state.data.albums = data;
+          state.searchedAlbums = data;
           break;
         case "track":
-          state.data.tracks = data;
+          state.searchedTracks = data;
           break;
         case "playlist":
-          state.data.playlists = data;
+          state.searchPlaylists = data;
           break;
       }
     },

@@ -35,3 +35,20 @@ func (a ArtistController) AddArtist(c *gin.Context) {
 
 	c.JSON(http.StatusCreated, artist)
 }
+
+func (a ArtistController) GetArtists(c *gin.Context) {
+	scheme := "http"
+	if c.Request.TLS != nil {
+		scheme = "https"
+	}
+	host := scheme + "://" + c.Request.Host
+	artists, err := artistHandler.GetAll(host)
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err.Error())
+		c.Abort()
+		return
+	}
+
+	c.JSON(http.StatusOK, artists)
+}

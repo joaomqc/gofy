@@ -1,6 +1,7 @@
 package server
 
 import (
+	"gofy/config"
 	"gofy/controllers"
 
 	"github.com/gin-contrib/cors"
@@ -8,6 +9,9 @@ import (
 )
 
 func NewRouter() *gin.Engine {
+	c := config.GetConfig()
+	cacheDir := c.GetString("cache.directory")
+
 	router := gin.Default()
 	router.Use(cors.Default())
 
@@ -28,7 +32,9 @@ func NewRouter() *gin.Engine {
 	{
 		artist := new(controllers.ArtistController)
 		artistGroup.POST("/", artist.AddArtist)
+		artistGroup.GET("/", artist.GetArtists)
 	}
 
+	router.Static("/image", cacheDir)
 	return router
 }

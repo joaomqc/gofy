@@ -9,3 +9,5 @@ mq:
   address: "localhost:6379"
 download:
   directory: "/music"
+cache:
+  directory: "/cache"
